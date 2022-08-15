@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Helmet } from "react-helmet";
 import anime from "animejs/lib/anime.es.js";
 // import layout frim layot component
-import Layout from "../components/layout/layout1";
+import Layout from "../layout/layout1.js";
 
 class Landing extends Component {
   //  add anime to the page

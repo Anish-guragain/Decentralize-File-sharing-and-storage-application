@@ -3,7 +3,6 @@ import Web3 from "web3";
 import Identicon from "identicon.js";
 import "./App.css";
 
-
 import Decentragram from "../abis/Decentragram.json";
 import Navbar from "./Navbar";
 import Main from "./Main";
@@ -21,18 +20,29 @@ import {
   Navigate,
 } from "react-router-dom";
 
+const projectId = '2DNC4SBCz7Ng25Er4w5ScMTdsaE';
+const projectSecret = 'f7ff4b799ed9f27555de38d8112aa568';
+const auth =
+    'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+
 const ipfsClient = require("ipfs-http-client");
 const ipfs = ipfsClient({
   host: "ipfs.infura.io",
   port: 5001,
   protocol: "https",
+  headers: {
+    authorization: auth,
+},
 });
 
 class App extends Component {
   async componentDidMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
+
   }
+
+ 
 
   async loadWeb3() {
     if (window.ethereum) {
@@ -84,7 +94,7 @@ class App extends Component {
       }
 
       // lopp through all the files
-      for (let i = 1; i <= fileCount; i++) {
+      for (let i = fileCount; i>= 1; i--) {
         const file = await decentragram.methods.files(i).call();
         this.setState({
           files: [...this.state.files, file],
@@ -121,16 +131,23 @@ class App extends Component {
   };
 
 
-  capturefile2 = (event) => {
-    event.preventDefault();
-    const file = event.target.files[0];
-    const reader = new window.FileReader();
-    reader.readAsArrayBuffer(file);
+ 
+  capturefile2 = event => {
+    event.preventDefault()
+
+    const file = event.target.files[0]
+    const reader = new window.FileReader()
+
+    reader.readAsArrayBuffer(file)
     reader.onloadend = () => {
-      this.setState({ buffer: Buffer(reader.result) });
-      console.log(this.state.buffer);
-    };
-  };
+      this.setState({
+        buffer: Buffer(reader.result),
+        type: file.type,
+        name: file.name
+      })
+      console.log('buffer', this.state.buffer)
+    }
+  }
 
 
   
@@ -158,9 +175,9 @@ class App extends Component {
   };
 
   uploadFile = (description) => {
-    console.log("submiting image to ipfs");
+    console.log("submiting File to ipfs");
     ipfs.add(this.state.buffer, (error, result) => {
-      console.log("ipfs result", result);
+      console.log("ipfs file result", result);
       if (error) {
         console.log(error);
         return;
@@ -172,7 +189,7 @@ class App extends Component {
       if(this.state.type === ''){
         this.setState({type: 'none'})
       }
-      this.state.dstorage.methods.uploadFile(result[0].hash, result[0].size, this.state.type, this.state.name, description).send({ from: this.state.account }).on('transactionHash', (hash) => {
+      this.state.decentragram.methods.uploadFile(result[0].hash, result[0].size, this.state.type, this.state.name, description).send({ from: this.state.account }).on('transactionHash', (hash) => {
         this.setState({
          loading: false,
          type: null,
@@ -212,13 +229,18 @@ class App extends Component {
       loading: true,
       type: null,
       name: null,
+      vantaRef : React.createRef(),
     };
+    this.uploadFile = this.uploadFile.bind(this)
+    this.capturefile2 = this.capturefile2.bind(this)
   }
   render() {
     return (
       <Router>
         <Helmet>
           <script src="https://cdn.tailwindcss.com" type="text/javascript" />
+       
+         
         </Helmet>
         <Routes>
           <Route
@@ -252,7 +274,7 @@ class App extends Component {
             ) : (
               <File
                 files={this.state.files}
-                capturefile={this.capturefile}
+                capturefile={this.capturefile2}
                 uploadFile={this.uploadFile}
             
               />
