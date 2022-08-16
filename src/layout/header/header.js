@@ -8,14 +8,6 @@ class Header extends React.Component {
     return(
       <header>
       <nav className=" absolute z-10 flex justify-between    ">
-      <div className="lEFT ml-5 text-white ">
-        <a
-          className=" items-center hover:text-black text-xl capitalize "
-          href="landing"
-        >
-          <img src="" alt="logo" className="w-38 h-38 " />
-        </a>
-      </div>
 
       <div className="RIGHT mt-3 ml-72 text-xl">
         <ul className=" flex decoration-black ">

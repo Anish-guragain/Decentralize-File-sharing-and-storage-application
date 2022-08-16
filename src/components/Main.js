@@ -1,23 +1,85 @@
 import React, { Component } from 'react'
 import Identicon from "identicon.js";
 import Layout2 from "../layout/layout2.js";
+import NET from 'vanta/dist/vanta.net.min'
+import anime from "animejs/lib/anime.es.js";
 
 
 class Main extends Component {
 
+  constructor() {
+    super()
+    this.vantaRef = React.createRef()
+  }
+  componentDidMount() {
+
+    anime({
+      targets: '.animate',
+      zIndex: [{ value: 1 }],
+      translateY: [
+        { value: -200, duration: 500 },
+        { value: 0, duration: 3000 },
+      ],
+      rotate: {
+        value: '1turn',
+      },
+      opacity: [{ value: [0, 1], duration: 2000 }],
+      loop: false,
+    });
+
+    this.vantaEffect = NET({
+      el: this.vantaRef.current,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      backgroundColor: 0x1f1d28
+    })
+  }
+  componentWillUnmount() {
+    if (this.vantaEffect) this.vantaEffect.destroy()
+  }
 
   render() {
     return (
      
       <Layout2>
     
-      <div className=" flex w-full   flex-col sm:flex-row-reverse    justify-between bg-gradient-to-l p-14 from-gray-700 via-gray-900 to-black " id="BODY">
-        
+      <div className=" overflow-x-hidden  flex w-full   flex-col sm:flex-row-reverse    justify-between bg-gradient-to-l p-14 from-gray-700 via-gray-900 to-black " ref={this.vantaRef} id="animation">
+        <div className='flex flex-col '>
+        <div className='text-white'>
+        <button class="relative align-middle inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+  <span class="relative px-2 py-2.5 transition-all ease-in duration-75 dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+  <li className="flex flex-row-reverse mt-3">
+  <small className=" text-xl">
+    <small id="account">{this.props.account}</small>
+  </small>
+  {this.props.account ? (
+    <img
+      className=""
+      width="30"
+      height="30"
+      src={`data:image/png;base64,${new Identicon(
+        this.props.account,
+        30
+      ).toString()}`}
+    />
+  ) : (
+    <span>Connect your wallet</span>
+  )}
+</li>
+  </span>
+</button>
+     
+        </div>
       <div
       role="main"
-      className=" md:w-3/12   "
+      className=" animate pt-8  "
     >
-      <div className="bg-[#80a0cd] rounded-lg">
+      <div className="bg-[#80a0cd] rounded-2xl ">
         <p>&nbsp;</p>
         <h2 className=" font-bold text-2xl p-2">Share Image</h2>
         <div className="px-2 py-2">
@@ -92,6 +154,7 @@ class Main extends Component {
       </div>
       <p>&nbsp;</p>
     </div>
+    </div>
 
         <div className='no-scrollbar w-full sm:w-[60%] h-screen   overflow-scroll rounded-xl    '>
        
@@ -115,7 +178,7 @@ class Main extends Component {
                   <p className="text-center flex justify-center">
                     <img className=' max-w-2xl'
                       alt="image"
-                      src={`https://ipfs.io/ipfs/${image.hash}`}
+                      src={`https://dapp.infura-ipfs.io/ipfs/${image.hash}`}
                       
                     />
                   </p>

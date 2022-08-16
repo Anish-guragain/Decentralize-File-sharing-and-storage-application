@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import Faq from "react-faq-component";
 import bg from "../faqbg.jpg";
+import Layout2 from "../layout/layout2.js";
+
 
 class Faqs extends Component {
   render() {
     return (
       <div>
-        <div className="bg-gradient-to-r from-gray-400 via-gray-600 to-blue-800 ">
+        <Layout2>
+        <div className="bg-gradient-to-r w-[100%] from-gray-400 via-gray-600 to-blue-800 ">
           <div>
             <div className=" opacity-75 relative top-32  ">
               <svg
@@ -310,6 +312,7 @@ class Faqs extends Component {
             </div>
           </div>
         </div>
+        </Layout2>
       </div>
     );
   }

@@ -5,17 +5,13 @@ import Wallet from "./wallet";
 import logo from "../logo.png";
 
 class Navbar extends Component {
+
+
+  
   render() {
     return (
       <nav className=" absolute z-10 flex justify-between    ">
-        <div className="lEFT ml-5 text-white ">
-          <a
-            className=" items-center hover:text-black text-xl capitalize "
-            href="landing"
-          >
-            <img src={logo} alt="logo" className="w-38 h-38 " />
-          </a>
-        </div>
+        
 
         <div className="RIGHT mt-3 ml-72 text-xl">
           <ul className=" flex decoration-black ">
@@ -60,7 +56,7 @@ class Navbar extends Component {
                     ).toString()}`}
                   />
                 ) : (
-                  <span></span>
+                  <span>Connect your wallet</span>
                 )}
               </li>
             </a>

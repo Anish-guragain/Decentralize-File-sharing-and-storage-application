@@ -237,11 +237,6 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Helmet>
-          <script src="https://cdn.tailwindcss.com" type="text/javascript" />
-       
-         
-        </Helmet>
         <Routes>
           <Route
             path="/Main"
@@ -252,6 +247,7 @@ class App extends Component {
                 </div>
               ) : (
                 <Main
+                  account={this.state.account}
                   images={this.state.images}
                   capturefile={this.capturefile}
                   uploadImage={this.uploadImage}
@@ -273,6 +269,7 @@ class App extends Component {
               </div>
             ) : (
               <File
+                account={this.state.account}
                 files={this.state.files}
                 capturefile={this.capturefile2}
                 uploadFile={this.uploadFile}

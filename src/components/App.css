@@ -6,4 +6,5 @@
 
 .no-scrollbar::-webkit-scrollbar {
     display: none;
+    overflow-x: hidden;
 }
