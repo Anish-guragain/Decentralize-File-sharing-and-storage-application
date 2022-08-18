@@ -1,17 +1,14 @@
 import React, { Component } from "react";
 import Web3 from "web3";
-import Identicon from "identicon.js";
 import "./App.css";
-
 import Decentragram from "../abis/Decentragram.json";
-import Navbar from "./Navbar";
 import Main from "./Main";
 import Wallet from "./wallet";
 import Landing from "./landing";
 import Faqs from "./faq";
 import File from "./file";
-import { Helmet } from "react-helmet";
 import Footer from "./footer";
+import Loading from "./loading";
 
 import {
   BrowserRouter as Router,
@@ -20,10 +17,10 @@ import {
   Navigate,
 } from "react-router-dom";
 
-const projectId = '2DNC4SBCz7Ng25Er4w5ScMTdsaE';
-const projectSecret = 'f7ff4b799ed9f27555de38d8112aa568';
+const projectId = "2DNC4SBCz7Ng25Er4w5ScMTdsaE";
+const projectSecret = "f7ff4b799ed9f27555de38d8112aa568";
 const auth =
-    'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+  "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
 
 const ipfsClient = require("ipfs-http-client");
 const ipfs = ipfsClient({
@@ -32,17 +29,14 @@ const ipfs = ipfsClient({
   protocol: "https",
   headers: {
     authorization: auth,
-},
+  },
 });
 
 class App extends Component {
   async componentDidMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
-
   }
-
- 
 
   async loadWeb3() {
     if (window.ethereum) {
@@ -83,7 +77,7 @@ class App extends Component {
       this.setState({ imageCount });
 
       // update the state with file count
-      this.setState({fileCount})
+      this.setState({ fileCount });
 
       // loop through all images
       for (let i = 1; i <= imageCount; i++) {
@@ -94,14 +88,12 @@ class App extends Component {
       }
 
       // lopp through all the files
-      for (let i = fileCount; i>= 1; i--) {
+      for (let i = fileCount; i >= 1; i--) {
         const file = await decentragram.methods.files(i).call();
         this.setState({
           files: [...this.state.files, file],
         });
       }
-
-
 
       // set highest tip image first
       this.setState({
@@ -130,27 +122,22 @@ class App extends Component {
     };
   };
 
+  capturefile2 = (event) => {
+    event.preventDefault();
 
- 
-  capturefile2 = event => {
-    event.preventDefault()
+    const file = event.target.files[0];
+    const reader = new window.FileReader();
 
-    const file = event.target.files[0]
-    const reader = new window.FileReader()
-
-    reader.readAsArrayBuffer(file)
+    reader.readAsArrayBuffer(file);
     reader.onloadend = () => {
       this.setState({
         buffer: Buffer(reader.result),
         type: file.type,
-        name: file.name
-      })
-      console.log('buffer', this.state.buffer)
-    }
-  }
-
-
-  
+        name: file.name,
+      });
+      console.log("buffer", this.state.buffer);
+    };
+  };
 
   uploadImage = (description) => {
     console.log("submiting image to ipfs");
@@ -186,24 +173,32 @@ class App extends Component {
       this.setState({ loading: true });
       console.log(fileHash);
 
-      if(this.state.type === ''){
-        this.setState({type: 'none'})
+      if (this.state.type === "") {
+        this.setState({ type: "none" });
       }
-      this.state.decentragram.methods.uploadFile(result[0].hash, result[0].size, this.state.type, this.state.name, description).send({ from: this.state.account }).on('transactionHash', (hash) => {
-        this.setState({
-         loading: false,
-         type: null,
-         name: null
-       })
-       window.location.reload()
-      }).on('error', (e) =>{
-        window.alert('Error')
-        this.setState({loading: false})
-      })
-    })
+      this.state.decentragram.methods
+        .uploadFile(
+          result[0].hash,
+          result[0].size,
+          this.state.type,
+          this.state.name,
+          description
+        )
+        .send({ from: this.state.account })
+        .on("transactionHash", (hash) => {
+          this.setState({
+            loading: false,
+            type: null,
+            name: null,
+          });
+          window.location.reload();
+        })
+        .on("error", (e) => {
+          window.alert("Error");
+          this.setState({ loading: false });
+        });
+    });
   };
-
-
 
   tipImageOwner = (id, tipAmount) => {
     this.setState({ loading: true });
@@ -215,24 +210,20 @@ class App extends Component {
       });
   };
 
-
-
-  
-
   constructor(props) {
     super(props);
     this.state = {
       account: "",
       decentragram: null,
       images: [],
-      files:[],
+      files: [],
       loading: true,
       type: null,
       name: null,
-      vantaRef : React.createRef(),
+      vantaRef: React.createRef(),
     };
-    this.uploadFile = this.uploadFile.bind(this)
-    this.capturefile2 = this.capturefile2.bind(this)
+    this.uploadFile = this.uploadFile.bind(this);
+    this.capturefile2 = this.capturefile2.bind(this);
   }
   render() {
     return (
@@ -242,8 +233,13 @@ class App extends Component {
             path="/Main"
             element={
               this.state.loading ? (
-                <div id="loader" className="flex items-center text-2xl justify-center text-white h-screen bg-gradient-to-l from-gray-700 via-gray-900 to-black">
-                  Loading...
+                <div
+                  id="loader"
+                  className="flex items-center flex-col text-2xl justify-center text-white h-screen bg-gradient-to-l from-gray-700 via-gray-900 to-black"
+                >
+                 
+                <Loading/>
+             
                 </div>
               ) : (
                 <Main
@@ -261,23 +257,26 @@ class App extends Component {
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/faq" element={<Faqs />} />
           <Route
-          path="/file"
-          element={
-            this.state.loading ? (
-              <div id="loader" className="flex items-center text-2xl justify-center text-white h-screen bg-gradient-to-l from-gray-700 via-gray-900 to-black">
-                Loading...
-              </div>
-            ) : (
-              <File
-                account={this.state.account}
-                files={this.state.files}
-                capturefile={this.capturefile2}
-                uploadFile={this.uploadFile}
-            
-              />
-            )
-          }
-        />
+            path="/file"
+            element={
+              this.state.loading ? (
+                <div
+                  id="loader"
+                  className="flex items-center text-2xl justify-center text-white h-screen bg-gradient-to-l from-gray-700 via-gray-900 to-black"
+                >
+                <Loading/>
+                  
+                </div>
+              ) : (
+                <File
+                  account={this.state.account}
+                  files={this.state.files}
+                  capturefile={this.capturefile2}
+                  uploadFile={this.uploadFile}
+                />
+              )
+            }
+          />
 
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Helmet } from "react-helmet";
 import anime from "animejs/lib/anime.es.js";
-// import layout frim layot component
-import Layout from "../layout/layout1.js";
 
 class Landing extends Component {
   //  add anime to the page
@@ -31,8 +29,7 @@ class Landing extends Component {
   }
   render() {
     return (
-      
-      <div className="  bg-black dark:bg-gray-900">
+      <div className="    bg-black dark:bg-gray-900">
         <section className="bg-black dark:bg-gray-900">
           <svg
             class="wave-top absolute w-full"
@@ -56,17 +53,13 @@ class Landing extends Component {
               forced by the central authority.
             </p>
             <div className="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
-              <a
-                href="main"
-  
-              >
-              <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
-  <span class="relative px-5 py-2.5 transition-all ease-in duration-75 dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-      START NOW
-  </span>
-</button>
+              <a href="main">
+                <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                  <span class="relative px-5 py-2.5 transition-all ease-in duration-75 dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                    START NOW
+                  </span>
+                </button>
               </a>
-           
             </div>
             <div className="px-4 mx-auto my-40 text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
               <span className="font-semibold text-gray-400 uppercase">
@@ -169,7 +162,6 @@ class Landing extends Component {
           </div>
         </section>
       </div>
-     
     );
   }
 }
