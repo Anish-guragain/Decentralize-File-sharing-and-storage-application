@@ -9,7 +9,7 @@ class Post extends Component {
     return (
       <Layout2>
         <div
-          className=" overflow-x-hidden  flex w-full   flex-col sm:flex-row-reverse    justify-between bg-gradient-to-l p-14 from-gray-700 via-gray-900 to-black "
+          className=" overflow-x-hidden  flex w-full   flex-col md:flex-row-reverse    justify-between bg-gradient-to-l p-14 from-gray-700 via-gray-900 to-black "
           id="BODY"
         >
           <div className="flex flex-col ">

@@ -49,7 +49,7 @@ class Main extends Component {
       
     
         <div
-          className=" overflow-x-hidden  flex w-full   flex-col sm:flex-row-reverse    justify-between bg-gradient-to-l p-14 from-gray-700 via-gray-900 to-black "
+          className=" overflow-x-hidden  flex flex-wrap w-full   flex-col md:flex-row-reverse    justify-between bg-gradient-to-l p-14 from-gray-700 via-gray-900 to-black "
           ref={this.vantaRef}
           id="animation"
         >
