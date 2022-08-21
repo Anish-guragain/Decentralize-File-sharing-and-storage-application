@@ -37,6 +37,7 @@ class Layout extends React.Component {
       decentragram: null,
       images: [],
       files:[],
+      posts:[],
       loading: true,
       type: null,
       name: null,

@@ -3,11 +3,13 @@ import Identicon from "identicon.js";
 import Layout2 from "../layout/layout2.js";
 import NET from "vanta/dist/vanta.net.min";
 import anime from "animejs/lib/anime.es.js";
+import Search from "./Search.js";
 
 class Main extends Component {
   constructor() {
     super();
     this.vantaRef = React.createRef();
+   
   }
   componentDidMount() {
     anime({
@@ -41,17 +43,22 @@ class Main extends Component {
   }
 
   render() {
+    
     return (
       <Layout2>
+      
+    
         <div
           className=" overflow-x-hidden  flex w-full   flex-col sm:flex-row-reverse    justify-between bg-gradient-to-l p-14 from-gray-700 via-gray-900 to-black "
           ref={this.vantaRef}
           id="animation"
         >
+
+
           <div className="flex flex-col ">
             <div className="text-white">
               <a href="wallet" target="_blank" className="text-white">
-                <button class="relative align-middle inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                <button class="relative align-middle inline-flex items-center justify-center p-0.5 mb-2  overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
                   <span class="relative px-2 py-2.5 transition-all ease-in duration-75 dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                     <li className="flex flex-row-reverse mt-3">
                       <small className=" text-xl">
@@ -158,7 +165,14 @@ class Main extends Component {
             </div>
           </div>
 
-          <div className="no-scrollbar w-full sm:w-[50%] h-screen   overflow-scroll rounded-xl    ">
+          <div className="flex flex-col ">
+
+          <div className="relative">
+         
+        </div>
+          
+
+          <div className="no-scrollbar w-full mt-10  h-screen   overflow-scroll rounded-xl    ">
             {this.props.images.map((image, key) => {
 
               // only return if image.author == this.props.account
@@ -223,6 +237,7 @@ class Main extends Component {
               );
             }
            )}
+          </div>
           </div>
         </div>
       </Layout2>
