@@ -13,7 +13,64 @@ contract Decentragram {
     uint256 public fileCount=0;
     mapping(uint256 => File) public files;
 
+
+    uint256 public postCount = 0;
+    mapping(uint256 => Post) public posts;
+
     //values stored in "Images" like defining tables and its columns
+
+
+
+    // code for storing images
+    struct Post{
+        uint postId;
+       
+        string posthash;
+        uint postSize;
+        string postName;
+        string postType;
+        string postDescription;
+        uint postuploadTime;
+        address payable postuploader;
+    }
+
+    event PostUploaded(uint postId, string posthash, uint postSize, string postName, string postType, string postDescription, uint postuploadTime, address payable postuploader);
+
+    function uploadPost(
+        string memory _posthash,
+        uint _postSize,
+        string memory _postName,
+        string memory _postType,
+        string memory _postDescription
+    ) public {
+       // file hash exists
+        require(bytes(_posthash).length > 0);
+
+        // file size is greater than 0
+        require(_postSize > 0);
+
+        // file name is not empty
+        require(bytes(_postName).length > 0);
+
+        // file type is not empty
+        require(bytes(_postType).length > 0);
+
+        // file description is not empty
+        require(bytes(_postDescription).length > 0);
+
+        // uploader is not empty
+        require(payable(msg.sender)!= address(0));
+
+
+        postCount++;
+        posts[postCount] = Post(postCount, _posthash, _postSize, _postName, _postType, _postDescription, block.timestamp, payable(msg.sender));
+
+        emit PostUploaded(postCount, _posthash, _postSize, _postName, _postType, _postDescription, block.timestamp, payable(msg.sender));
+
+      
+    }
+
+    // code for file upload
     struct File{
         uint fileId;
         string filehash;
@@ -28,31 +85,7 @@ contract Decentragram {
 
     event FileUploaded(uint fileId, string filehash, uint fileSize, string fileName, string fileType, string fileDescription, uint uploadTime, address payable uploader);
 
-    struct Image {
-        uint256 id;
-        string hash;
-        string description;
-        uint256 tipAmount;
-        address payable author;
-    }
-
-    event ImageCreate(
-        uint256 id,
-        string hash,
-        string description,
-        uint256 tipAmount,
-        address payable author
-    );
-
-    event ImageTipped(
-        uint256 id,
-        string hash,
-        string description,
-        uint256 tipAmount,
-        address payable author
-    );
-
-
+    
     function uploadFile(
         string memory _filehash,
         uint _fileSize,
@@ -87,6 +120,34 @@ contract Decentragram {
         emit FileUploaded(fileCount, _filehash, _fileSize, _fileName, _fileType, _fileDescription, block.timestamp, payable(msg.sender));
 
     }
+
+
+    // code for image upload
+
+    struct Image {
+        uint256 id;
+        string hash;
+        string description;
+        uint256 tipAmount;
+        address payable author;
+    }
+
+    event ImageCreate(
+        uint256 id,
+        string hash,
+        string description,
+        uint256 tipAmount,
+        address payable author
+    );
+
+    event ImageTipped(
+        uint256 id,
+        string hash,
+        string description,
+        uint256 tipAmount,
+        address payable author
+    );
+
 
 
     // create Images

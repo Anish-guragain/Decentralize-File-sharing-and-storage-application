@@ -33,8 +33,15 @@ class Header2 extends React.Component {
         <div>
         <a href="faq">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:mb-10 text-white hover:text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        </a>
+      </div>
+      <div>
+        <a href="Storage">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 bg-slate-500 text-white hover:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+      </svg>
         </a>
       </div>
        

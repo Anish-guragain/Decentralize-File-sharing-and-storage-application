@@ -9,6 +9,7 @@ import Faqs from "./faq";
 import File from "./file";
 import Footer from "./footer";
 import Loading from "./loading";
+import Post from "./Storage";
 
 import {
   BrowserRouter as Router,
@@ -73,11 +74,17 @@ class App extends Component {
       const imageCount = await decentragram.methods.imageCount().call();
       // get file count
       const fileCount = await decentragram.methods.fileCount().call();
+      // get post count
+      const postCount = await decentragram.methods.postCount().call();
+
       //Update the state with image count
       this.setState({ imageCount });
 
       // update the state with file count
       this.setState({ fileCount });
+
+      // update the state with post count
+      this.setState({ postCount });
 
       // loop through all images
       for (let i = 1; i <= imageCount; i++) {
@@ -92,6 +99,14 @@ class App extends Component {
         const file = await decentragram.methods.files(i).call();
         this.setState({
           files: [...this.state.files, file],
+        });
+      }
+
+      // loop through all the posts
+      for (let i = postCount; i >= 1; i--) {
+        const post = await decentragram.methods.posts(i).call();
+        this.setState({
+          posts: [...this.state.posts, post],
         });
       }
 
@@ -110,6 +125,9 @@ class App extends Component {
       "0x8f8b8f8b8f8b8f8b8f8b8f8b8f8b8f8b8f8b8f8b"
     );
   }
+
+
+  // capture file, image and post
 
   capturefile = (event) => {
     event.preventDefault();
@@ -139,6 +157,30 @@ class App extends Component {
     };
   };
 
+
+  capturefile3= (event) => {
+
+    event.preventDefault();
+
+    const file = event.target.files[0];
+    const reader = new window.FileReader();
+
+    reader.readAsArrayBuffer(file);
+    reader.onloadend = () => {
+      this.setState({
+        buffer: Buffer(reader.result),
+        type: file.type,
+        name: file.name,
+      });
+      console.log("buffer", this.state.buffer);
+    };
+  }
+
+
+
+
+// upload file,imageand post to ipfs
+
   uploadImage = (description) => {
     console.log("submiting image to ipfs");
     ipfs.add(this.state.buffer, (error, result) => {
@@ -157,6 +199,7 @@ class App extends Component {
         })
         .on("transactionHash", (hash) => {
           this.setState({ loading: false });
+          window.location.reload();
         });
     });
   };
@@ -200,6 +243,47 @@ class App extends Component {
     });
   };
 
+  uploadPost = (description) => {
+    console.log("submiting Post to ipfs");
+    ipfs.add(this.state.buffer, (error, result) => {
+      console.log("ipfs post result", result);
+      if (error) {
+        console.log(error);
+        return;
+      }
+      const postHash = result[0].hash;
+      this.setState({ loading: true });
+      console.log(postHash);
+
+      if (this.state.type === "") {
+        this.setState({ type: "none" });
+      }
+      this.state.decentragram.methods
+        .uploadPost(
+          result[0].hash,
+          result[0].size,
+          this.state.type,
+          this.state.name,
+          description
+        )
+        .send({ from: this.state.account })
+        .on("transactionHash", (hash) => {
+          this.setState({
+            loading: false,
+            type: null,
+            name: null,
+          });
+          window.location.reload();
+        })
+        .on("error", (e) => {
+          window.alert("Error");
+          this.setState({ loading: false });
+        });
+    });
+  }
+
+
+  // Tip image
   tipImageOwner = (id, tipAmount) => {
     this.setState({ loading: true });
     this.state.decentragram.methods
@@ -210,6 +294,8 @@ class App extends Component {
       });
   };
 
+
+
   constructor(props) {
     super(props);
     this.state = {
@@ -217,6 +303,7 @@ class App extends Component {
       decentragram: null,
       images: [],
       files: [],
+      posts: [],
       loading: true,
       type: null,
       name: null,
@@ -224,6 +311,8 @@ class App extends Component {
     };
     this.uploadFile = this.uploadFile.bind(this);
     this.capturefile2 = this.capturefile2.bind(this);
+    this.uploadPost = this.uploadPost.bind(this);
+    this.capturefile3 = this.capturefile3.bind(this);
   }
   render() {
     return (
@@ -273,6 +362,27 @@ class App extends Component {
                   files={this.state.files}
                   capturefile={this.capturefile2}
                   uploadFile={this.uploadFile}
+                />
+              )
+            }
+          />
+          <Route
+            path="/Storage"
+            element={
+              this.state.loading ? (
+                <div
+                  id="loader"
+                  className="flex items-center text-2xl justify-center text-white h-screen bg-gradient-to-l from-gray-700 via-gray-900 to-black"
+                >
+                <Loading/>
+                  
+                </div>
+              ) : (
+                <Post
+                  account={this.state.account}
+                  posts={this.state.posts}
+                  capturefile={this.capturefile3}
+                  uploadPost={this.uploadPost}
                 />
               )
             }

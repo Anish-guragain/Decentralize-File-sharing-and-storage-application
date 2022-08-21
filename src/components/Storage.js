@@ -4,7 +4,7 @@ import moment from "moment";
 import Layout2 from "../layout/layout2.js";
 import Identicon from "identicon.js";
 
-class File extends Component {
+class Post extends Component {
   render() {
     return (
       <Layout2>
@@ -46,8 +46,8 @@ class File extends Component {
                   <form
                     onSubmit={(event) => {
                       event.preventDefault();
-                      const description = this.fileDescription.value;
-                      this.props.uploadFile(description);
+                      const description = this.postDescription.value;
+                      this.props.uploadPost(description);
                     }}
                   >
                     <div className="flex justify-center items-center w-full">
@@ -96,7 +96,7 @@ class File extends Component {
                         id="imageDescription"
                         type="text"
                         ref={(input) => {
-                          this.fileDescription = input;
+                          this.postDescription = input;
                         }}
                         className="form-control"
                         placeholder=" Description..."
@@ -147,42 +147,42 @@ class File extends Component {
                 </tr>
               </thead>
 
-              {this.props.files.map((file, key) => {
+              {this.props.posts.map((post, key) => {
                 // add new data to the table in numerical order
 
-                if(file.uploader === this.props.account){
+                if(this.props.account === post.postuploader){
 
                 return (
                   <thead style={{ fontSize: "12px" }} key={key}>
                     <tr className=" border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td className="py-4 px-6">{parseInt(file.fileId, 16)}</td>
+                      <td className="py-4 px-6">{parseInt(post.postId, 16)}</td>
                       <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {file.fileName}
+                        {post.postName}
                       </td>
-                      <td className="py-4 px-6">{file.fileDescription}</td>
-                      <td className="py-4 px-6">{file.fileType}</td>
+                      <td className="py-4 px-6">{post.postDescription}</td>
+                      <td className="py-4 px-6">{post.postType}</td>
                       <td className="py-4 px-6">
-                        {convertBytes(file.fileSize)}
+                        {convertBytes(post.postSize)}
                       </td>
                       <td className="py-4 px-6">
-                        {moment.unix(file.uploadTime).format("h:mm:ss A M/D/Y")}
+                        {moment.unix(post.uploadTime).format("h:mm:ss A M/D/Y")}
                       </td>
                       <td className="py-4 px-6 hover:text-white">
                         <a
-                          href={"https://etherscan.io/address/" + file.uploader}
+                          href={"https://etherscan.io/address/" + post.uploader}
                           rel="noopener noreferrer"
                           target="_blank"
                         >
-                          {file.uploader.substring(0, 10)}...
+                          {post.postuploader.substring(0, 10)}...
                         </a>
                       </td>
                       <td className="py-4 px-6 text-green-500">
                         <a
-                          href={`https://dapp.infura-ipfs.io/ipfs/${file.filehash}`}
+                          href={`https://dapp.infura-ipfs.io/ipfs/${post.posthash}`}
                           rel="noopener noreferrer"
                           target="_blank"
                         >
-                          {file.filehash.substring(0, 10)}...
+                          {post.posthash.substring(0, 10)}...
                         </a>
                       </td>
                     </tr>
@@ -192,9 +192,7 @@ class File extends Component {
               else{
                 return null;
               }
-              
-            }
-            )}
+            })}
             </table>
           </div>
         </div>
@@ -203,4 +201,4 @@ class File extends Component {
   }
 }
 
-export default File;
+export default Post;
