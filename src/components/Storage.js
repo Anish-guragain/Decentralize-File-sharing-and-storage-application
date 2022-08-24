@@ -39,7 +39,7 @@ class Post extends Component {
             </div>
 
             <div role="main" className=" pt-8   ">
-              <div className="bg-[#80a0cd] rounded-lg">
+              <div className="bg-[#70cea7] rounded-lg">
                 <p>&nbsp;</p>
                 <h2 className=" font-bold text-2xl p-2">Share File</h2>
                 <div className="px-2 py-2">
@@ -53,7 +53,7 @@ class Post extends Component {
                     <div className="flex justify-center items-center w-full">
                       <label
                         for="dropzone-file"
-                        className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                        className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer  dark:bg-[#445d53] hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                       >
                         <div className="flex flex-col justify-center items-center pt-5 pb-6">
                           <svg
@@ -116,84 +116,93 @@ class Post extends Component {
             </div>
           </div>
 
-          <div className="no-scrollbar w-full sm:w-[60%] h-screen   overflow-scroll rounded-xl overflow-x-auto   ">
-            <table className=" text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr className="bg-dark text-white">
-                  <th className="py-3 px-6" scope="col">
-                    id
-                  </th>
-                  <th className="py-3 px-6" scope="col">
-                    name
-                  </th>
-                  <th className="py-3 px-6" scope="col">
-                    description
-                  </th>
-                  <th className="py-3 px-6" scope="col">
-                    type
-                  </th>
-                  <th className="py-3 px-6" scope="col">
-                    size
-                  </th>
-                  <th className="py-3 px-6" scope="col">
-                    date
-                  </th>
-                  <th className="py-3 px-6" scope="col">
-                    uploader/view
-                  </th>
-                  <th className="py-3 px-6" scope="col">
-                    hash/view/get
-                  </th>
-                </tr>
-              </thead>
+          <div className="no-scrollbar w-full sm:w-[60%] h-screen bg-gradient-to-l p-14 from-gray-700 via-gray-900 to-black   overflow-scroll rounded-xl overflow-x-auto   ">
+          <div className=" flex justify-between   mb-4 text-white">
+          <div className=" flex font-bold   text-white">
+           <p className=" text-5xl">My Storage</p>
+          
+          </div>
+          <div className="" >
+          <div>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 text-yellow-200">
+<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+</svg>
 
-              {this.props.posts.map((post, key) => {
+          </div>
+          </div>
+         </div>
+
+
+
+
+              {this.props.posts.map((post) => {
                 // add new data to the table in numerical order
 
                 if(this.props.account === post.postuploader){
 
                 return (
-                  <thead style={{ fontSize: "12px" }} key={key}>
-                    <tr className=" border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td className="py-4 px-6">{parseInt(post.postId, 16)}</td>
-                      <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {post.postName}
-                      </td>
-                      <td className="py-4 px-6">{post.postDescription}</td>
-                      <td className="py-4 px-6">{post.postType}</td>
-                      <td className="py-4 px-6">
-                        {convertBytes(post.postSize)}
-                      </td>
-                      <td className="py-4 px-6">
-                        {moment.unix(post.uploadTime).format("h:mm:ss A M/D/Y")}
-                      </td>
-                      <td className="py-4 px-6 hover:text-white">
-                        <a
-                          href={"https://etherscan.io/address/" + post.uploader}
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          {post.postuploader.substring(0, 10)}...
-                        </a>
-                      </td>
-                      <td className="py-4 px-6 text-green-500">
-                        <a
+
+                  <div>
+                  <div className="flex p-4 hover:bg-gradient-to-l from-[#689268] via-[#b07575] to-[#bdbd6e] text-white justify-between">
+                  <div className="flex justify-between "> 
+                 
+                  <div className=" flex">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+                <div className=" ml-2">
+                {post.postName}
+                </div>
+                  </div>
+       
+                 
+                  <div className=" ml-4">
+                  {post.postDescription}
+                  </div>
+                 
+                  </div>
+       
+                  <div className="flex justify-between">
+                 
+                  <div className="">
+                  <a
                           href={`https://dapp.infura-ipfs.io/ipfs/${post.posthash}`}
                           rel="noopener noreferrer"
                           target="_blank"
                         >
                           {post.posthash.substring(0, 10)}...
                         </a>
-                      </td>
-                    </tr>
-                  </thead>
+                  
+                  </div>
+                  
+                  </div>
+               
+       
+                  </div>
+                  
+                  </div>
+                    
+                 
+
+
+
+
+
+
                 );
               }
               else{
                 return null;
               }
             })}
-            </table>
+         
+
+       
+
+    
+
+       
+            
           </div>
         </div>
       </Layout2>

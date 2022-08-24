@@ -150,7 +150,7 @@ class File extends Component {
               {this.props.files.map((file, key) => {
                 // add new data to the table in numerical order
 
-                if(file.uploader === this.props.account){
+              
 
                 return (
                   <thead style={{ fontSize: "12px" }} key={key}>
@@ -189,13 +189,13 @@ class File extends Component {
                   </thead>
                 );
               }
-              else{
-                return null;
-              }
+             
               
-            }
+            
             )}
             </table>
+
+          
           </div>
         </div>
       </Layout2>

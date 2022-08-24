@@ -113,6 +113,9 @@ class App extends Component {
       // set highest tip image first
       this.setState({
         images: this.state.images.sort((a, b) => b.tipAmount - a.tipAmount),
+        // set lowest ID post first
+        posts: this.state.posts.sort((a, b) => b.description - a.description),
+
       });
 
       this.setState({ loading: false });

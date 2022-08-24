@@ -5,7 +5,7 @@ class Header2 extends React.Component {
   render() {
     return(
       
-      <nav className="flex flex-wrap sticky bottom-0  md:flex md:flex-col px-4 py-8   md:h-screen  md:w-fit md:justify-start justify-between z-10 bg-gray-800">
+      <nav className="flex flex-wrap sticky bottom-0  md:flex md:flex-col px-4 py-8  md:h-[119vh]  md:w-fit md:justify-start justify-between z-10 bg-gray-800">
         <div>
           <h3 className="text-sm   hidden md:flex font-medium text-blue-500 mb-10">DAPP</h3>
         </div>

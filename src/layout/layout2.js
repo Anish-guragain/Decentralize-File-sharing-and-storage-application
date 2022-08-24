@@ -4,6 +4,7 @@ import Header2 from "./header/header2"
 
 
 
+
 class Layout2 extends Component {
   render() {
     return (
