@@ -135,14 +135,14 @@ class Post extends Component {
 
 
 
-              {this.props.posts.map((post) => {
+              {this.props.posts.map((post,key) => {
                 // add new data to the table in numerical order
 
                 if(this.props.account === post.postuploader){
 
                 return (
 
-                  <div>
+                  <div key={key}>
                   <div className="flex p-4 hover:bg-gradient-to-l from-[#689268] via-[#b07575] to-[#bdbd6e] text-white justify-between">
                   <div className="flex justify-between "> 
                  
@@ -162,18 +162,25 @@ class Post extends Component {
                  
                   </div>
        
-                  <div className="flex justify-between">
-                 
+                  <div className="flex justify-between">   
+
+                  <div className=" mr-12">
+                  address:{post.postuploader.substring(0,5)}
+                  </div>
+
                   <div className="">
                   <a
                           href={`https://dapp.infura-ipfs.io/ipfs/${post.posthash}`}
                           rel="noopener noreferrer"
                           target="_blank"
-                        >
+                  >
                           {post.posthash.substring(0, 10)}...
-                        </a>
+                  </a>
                   
-                  </div>
+                  </div>  
+
+
+                 
                   
                   </div>
                
@@ -181,25 +188,12 @@ class Post extends Component {
                   </div>
                   
                   </div>
-                    
-                 
-
-
-
-
-
-
                 );
               }
               else{
                 return null;
               }
             })}
-         
-
-       
-
-    
 
        
             

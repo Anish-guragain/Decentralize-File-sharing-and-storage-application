@@ -150,7 +150,10 @@ class File extends Component {
               {this.props.files.map((file, key) => {
                 // add new data to the table in numerical order
 
-              
+
+
+                
+                
 
                 return (
                   <thead style={{ fontSize: "12px" }} key={key}>
@@ -189,10 +192,7 @@ class File extends Component {
                   </thead>
                 );
               }
-             
-              
-            
-            )}
+ )}
             </table>
 
           
