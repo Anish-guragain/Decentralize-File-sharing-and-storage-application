@@ -159,11 +159,12 @@ class File extends Component {
                   <thead style={{ fontSize: "12px" }} key={key}>
                     <tr className=" border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                       <td className="py-4 px-6">{parseInt(file.fileId, 16)}</td>
+                      <td className="py-4 px-6">{file.fileType}</td>
+                      
+                      <td className="py-4 px-6">{file.fileDescription}</td>
                       <td className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {file.fileName}
                       </td>
-                      <td className="py-4 px-6">{file.fileDescription}</td>
-                      <td className="py-4 px-6">{file.fileType}</td>
                       <td className="py-4 px-6">
                         {convertBytes(file.fileSize)}
                       </td>

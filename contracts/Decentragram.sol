@@ -17,6 +17,8 @@ contract Decentragram {
     uint256 public postCount = 0;
     mapping(uint256 => Post) public posts;
 
+
+
     //values stored in "Images" like defining tables and its columns
 
 
@@ -24,7 +26,6 @@ contract Decentragram {
     // code for storing images
     struct Post{
         uint postId;
-       
         string posthash;
         uint postSize;
         string postName;
@@ -130,14 +131,18 @@ contract Decentragram {
         string description;
         uint256 tipAmount;
         address payable author;
+
+
     }
 
     event ImageCreate(
         uint256 id,
         string hash,
         string description,
+       
         uint256 tipAmount,
         address payable author
+
     );
 
     event ImageTipped(
@@ -146,6 +151,7 @@ contract Decentragram {
         string description,
         uint256 tipAmount,
         address payable author
+
     );
 
 
@@ -154,7 +160,7 @@ contract Decentragram {
     function uploadImage(
         string memory _imgHash,
         string memory _description
-        
+                
     ) public payable {
         // Image description exist while uploading
         require(bytes(_description).length > 0);
@@ -182,6 +188,7 @@ contract Decentragram {
             imageCount,
             _imgHash,
             _description,
+          
             0,
             payable(msg.sender)
         );
@@ -211,4 +218,30 @@ contract Decentragram {
             _image.author
         );
     }
+
+
+
+
+    
+    // function comment(uint256 _id, string memory _comment2) public payable {
+      
+    //     require(payable(msg.sender) != address(0x0));
+
+    //     Image memory _image = images[_id];
+
+    //     _image.comment=_image.comment=  _comment2;
+
+
+    //    images[_id] = _image;
+    //     // Trigger an event
+    //     emit ImageTipped(
+    //         _id,
+    //         _image.hash,
+    //         _image.description,
+    //         _image.comment,
+    //         _image.tipAmount,
+    //         _image.author
+    //     );
+    // }
+
 }

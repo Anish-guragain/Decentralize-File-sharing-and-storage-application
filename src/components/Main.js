@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Identicon from "identicon.js";
 import Layout2 from "../layout/layout2.js";
+import axios from "axios";
 import NET from "vanta/dist/vanta.net.min";
 import anime from "animejs/lib/anime.es.js";
 import Search from "./Search.js";
@@ -9,9 +10,41 @@ class Main extends Component {
   constructor() {
     super();
     this.vantaRef = React.createRef();
+
    
   }
+
+  state = {
+    comment: '',
+    cmt:[]
+  };
+
+  
+handleSubmit = event => {
+  event.preventDefault();
+  const user = {
+    comment: this.state.comment
+  }
+  axios.post('https://6326da0e5731f3db994e2a40.mockapi.io/data',{user})
+    .then(res=>{
+      console.log(res);
+      console.log(res.data);
+    
+    })
+}
+handleChange = event =>{
+  this.setState({ comment: event.target.value});
+}
+
+
   componentDidMount() {
+    axios.get("https://6326da0e5731f3db994e2a40.mockapi.io/data") // where the api gets fetched from that API
+      .then(res=>{
+        console.log(res);
+        this.setState({ cmt: res.data});
+      })
+  
+
     anime({
       targets: ".animate",
       zIndex: [{ value: 1 }],
@@ -53,8 +86,6 @@ class Main extends Component {
           ref={this.vantaRef}
           id="animation"
         >
-
-
           <div className="flex flex-col ">
             <div className="text-white">
               <a href="wallet" target="_blank" className="text-white">
@@ -91,6 +122,7 @@ class Main extends Component {
                     onSubmit={(event) => {
                       event.preventDefault();
                       const description = this.imageDescription.value;
+
                       this.props.uploadImage(description);
                     }}
                   >
@@ -149,7 +181,8 @@ class Main extends Component {
                       />
                     </div>
 
-              
+
+      
                     <button
                       type="submit"
                       className="bg-[#6565e7] rounded-md hover:bg-[#60c9c7] ml-2 p-2"
@@ -161,22 +194,30 @@ class Main extends Component {
                   </form>
                 </div>
               </div>
-              <p>&nbsp;</p>
+              <p>&nbsp;</p> 
             </div>
           </div>
 
+
+          
+
           <div className="flex flex-col ">
+          
 
           <div className="relative">
          
         </div>
+
+        
           
+       
 
           <div className="no-scrollbar w-full mt-10  h-screen   overflow-scroll rounded-xl    ">
+
+         
             {this.props.images.map((image, key) => {
 
-              // only return if image.author == this.props.account
-          
+            
 
               return (
                 <div className=" rounded-md mb-5 " key={key}>
@@ -200,10 +241,37 @@ class Main extends Component {
                           src={`https://dapp.infura-ipfs.io/ipfs/${image.hash}`}
                         />
                       </p>
+              
                       <p className="font-bold text-white">
                         {image.description}
                       </p>
+
+                      {this.state.cmt.map(person=><li className="text-white" key = {person.id}>{person.user.comment}</li>)}
+
+                      
                     </li>
+                    <form
+                    onSubmit={this.handleSubmit}
+                  >
+                  <div className="form-group mr-sm-2">
+                  <br></br>
+                  <input
+                    id="imagecomment"
+                    type="text"
+                    comment = "comment"
+                    onChange={this.handleChange}
+                    className="form-control"
+                    placeholder="comment..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="bg-[#6565e7] rounded-md hover:bg-[#60c9c7] ml-2 p-2"
+                >
+                  comment
+                </button>
+                  </form>
                     <li key={key} className="list-group-item py-2">
                       <small className="float-left mt-1 text-muted">
                         TIPS:{" "}
@@ -213,7 +281,8 @@ class Main extends Component {
                         )}{" "}
                         ETH
                       </small>
-
+                      {this.props.account != image.author
+                        ?
                       <button
                         className="btn btn-link btn-sm float-right pt-0"
                         name={image.id}
@@ -231,6 +300,9 @@ class Main extends Component {
                       >
                         TIP 0.1 ETH
                       </button>
+                      :
+                      null
+                      }
                     </li>
                   </ul>
                 </div>
@@ -238,6 +310,7 @@ class Main extends Component {
             }
            )}
           </div>
+
           </div>
         </div>
       </Layout2>

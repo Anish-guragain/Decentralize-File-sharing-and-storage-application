@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Helmet } from "react-helmet";
 import anime from "animejs/lib/anime.es.js";
 
+
 class Landing extends Component {
   //  add anime to the page
   componentDidMount() {
@@ -25,7 +26,14 @@ class Landing extends Component {
         { value: wave4 },
         { value: wave1 },
       ],
+
+   
+
     });
+
+ 
+
+
   }
   render() {
     return (
@@ -43,11 +51,11 @@ class Landing extends Component {
               fill="#0099FF"
             />
           </svg>
-          <div className="py-8 top-32 relative px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
-            <h1 className=" mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl ">
+          <div className=" py-8 top-32 relative px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+            <h1 className="header1 mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl ">
               We Belive in Decentralized System.
             </h1>
-            <p className="mb-8 text-lg font-normal text-white  lg:text-xl sm:px-16 xl:px-48 ">
+            <p className="header2 mb-8 text-lg font-normal text-white  lg:text-xl sm:px-16 xl:px-48 ">
               Here we focus on system where everyone can share their thoughts
               and ideas without being censored or limited by any kind of rules
               forced by the central authority.

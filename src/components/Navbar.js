@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import Identicon from "identicon.js";
 
 class Navbar extends Component {
-
-
-  
   render() {
     return (
       <nav className=" absolute z-10 flex justify-between    ">

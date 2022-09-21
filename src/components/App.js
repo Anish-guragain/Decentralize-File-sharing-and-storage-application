@@ -3,6 +3,7 @@ import Web3 from "web3";
 import "./App.css";
 import Decentragram from "../abis/Decentragram.json";
 import Main from "./Main";
+import axios from "axios";
 import Wallet from "./wallet";
 import Landing from "./landing";
 import Faqs from "./faq";
@@ -17,6 +18,7 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+import { comment } from "postcss";
 
 const projectId = "2DNC4SBCz7Ng25Er4w5ScMTdsaE";
 const projectSecret = "f7ff4b799ed9f27555de38d8112aa568";
@@ -32,6 +34,10 @@ const ipfs = ipfsClient({
     authorization: auth,
   },
 });
+
+
+
+
 
 class App extends Component {
   async componentDidMount() {
@@ -77,6 +83,9 @@ class App extends Component {
       // get post count
       const postCount = await decentragram.methods.postCount().call();
 
+     
+
+
       //Update the state with image count
       this.setState({ imageCount });
 
@@ -86,6 +95,8 @@ class App extends Component {
       // update the state with post count
       this.setState({ postCount });
 
+      
+
       // loop through all images
       for (let i = 1; i <= imageCount; i++) {
         const image = await decentragram.methods.images(i).call();
@@ -93,6 +104,8 @@ class App extends Component {
           images: [...this.state.images, image],
         });
       }
+
+      // 
 
       // lopp through all the files
       for (let i = fileCount; i >= 1; i--) {
@@ -109,6 +122,8 @@ class App extends Component {
           posts: [...this.state.posts, post],
         });
       }
+
+
 
       // set highest tip image first
       this.setState({
@@ -195,8 +210,9 @@ class App extends Component {
       const imageHash = result[0].hash;
       this.setState({ loading: true });
       console.log(imageHash);
+      
       this.state.decentragram.methods
-        .uploadImage(imageHash, description)
+        .uploadImage(imageHash, description )
         .send({
           from: this.state.account,
         })
@@ -297,6 +313,8 @@ class App extends Component {
       });
   };
 
+  // commet
+  
 
 
   constructor(props) {
@@ -307,6 +325,7 @@ class App extends Component {
       images: [],
       files: [],
       posts: [],
+      comment:[],
       loading: true,
       type: null,
       name: null,
@@ -316,6 +335,7 @@ class App extends Component {
     this.capturefile2 = this.capturefile2.bind(this);
     this.uploadPost = this.uploadPost.bind(this);
     this.capturefile3 = this.capturefile3.bind(this);
+    
   }
   render() {
     return (
@@ -340,6 +360,8 @@ class App extends Component {
                   capturefile={this.capturefile}
                   uploadImage={this.uploadImage}
                   tipImageOwner={this.tipImageOwner}
+                  uploadComment={this.uploadComment}
+                  readcomment={this.readcomment}
                 />
               )
             }
